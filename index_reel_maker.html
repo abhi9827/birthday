@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aesthetic Birthday Reel Studio | Dreamy Scrapbook Video Generator</title>
+  <meta name="description" content="Create a beautiful, cute, dreamy and emotionally heartwarming birthday Instagram Reel for your best friend with pastel scrapbook aesthetic, polaroid frames, and dreamy music.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+</head>
+<body>
+
+  <!-- Top Studio Header -->
+  <header class="app-header">
+    <div class="brand-wrapper">
+      <div class="brand-icon">🎀</div>
+      <div>
+        <h1 class="brand-title">Aesthetic Birthday Reel Studio</h1>
+        <p class="brand-subtitle">Pastel Scrapbook & Pinterest Aesthetic • Vertical 9:16 (1080 × 1920)</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="btnExportStill" class="btn btn-secondary" title="Save current frame as a high-res Instagram Story picture">
+        📸 Save Story Still
+      </button>
+      <button id="btnExportVideo" class="btn btn-primary" title="Export 1080x1920 Instagram Reel Video">
+        ✨ Export Instagram Reel (1080 × 1920)
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="studio-container">
+
+    <!-- Left Column: Realistic Phone Preview & Interactive Timeline -->
+    <section class="preview-column">
+      
+      <!-- iPhone 16 Mockup Frame with 9:16 Display -->
+      <div class="phone-mockup" id="phoneMockup">
+        <div class="phone-dynamic-island"></div>
+        <div class="phone-screen">
+          <canvas id="reelCanvas" width="1080" height="1920"></canvas>
+        </div>
+      </div>
+
+      <!-- Playback & Timeline Controls -->
+      <div class="timeline-card">
+        <div class="timeline-header">
+          <div class="playback-buttons">
+            <button id="btnPlayPause" class="btn btn-primary btn-round" aria-label="Play/Pause">
+              <span id="playIcon">▶</span>
+              <span id="pauseIcon" style="display: none;">❚❚</span>
+            </button>
+            <button id="btnRestart" class="btn btn-secondary btn-round" title="Restart to 00:00">
+              ↺
+            </button>
+          </div>
+          <div class="time-display" id="timeDisplay">00.0s / 30.0s</div>
+        </div>
+
+        <!-- Scrubber Bar -->
+        <div class="timeline-bar-wrapper">
+          <div class="timeline-progress" id="timelineProgress"></div>
+          <input type="range" class="timeline-scrubber" id="timelineScrubber" min="0" max="30" step="0.05" value="0">
+        </div>
+
+        <!-- Interactive Scene Selector Chips -->
+        <div class="scene-chips">
+          <div class="scene-badge active" data-scene="1">1. Special Day (0-3s)</div>
+          <div class="scene-badge" data-scene="2">2. Polaroids (3-7s)</div>
+          <div class="scene-badge" data-scene="3">3. Memories (7-12s)</div>
+          <div class="scene-badge" data-scene="4">4. Scrapbook (12-18s)</div>
+          <div class="scene-badge" data-scene="5">5. Hero Photo (18-24s)</div>
+          <div class="scene-badge" data-scene="6">6. Celebration (24-30s)</div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Right Column: Personalization & Customization Panels -->
+    <section class="customizer-column">
+
+      <!-- 1. Friend's Personalization Panel -->
+      <div class="panel-card">
+        <h2 class="panel-title">💌 Best Friend Personalization</h2>
+        <p class="panel-desc">Enter your best friend's name and customize any of the heartfelt message lines.</p>
+
+        <div class="form-group full-width">
+          <label class="form-label" for="inputFriendName">Best Friend's Name</label>
+          <input type="text" id="inputFriendName" class="form-input form-input-hero" value="EMMA" placeholder="e.g. EMMA, SOPHIA, MIA...">
+        </div>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="inputScene1">Scene 1 (0–3s)</label>
+            <input type="text" id="inputScene1" class="form-input" value="someone very special was born… ♡">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputScene2">Scene 2 (3–7s)</label>
+            <input type="text" id="inputScene2" class="form-input" value="and the world got a little more beautiful 🎀">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputScene3">Scene 3 (7–12s)</label>
+            <input type="text" id="inputScene3" class="form-input" value="my favourite memories have you in them ♡">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputScene4">Scene 4 (12–18s)</label>
+            <input type="text" id="inputScene4" class="form-input" value="thank you for being YOU 🧸">
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label" for="inputScene5">Scene 5 (18–24s: Golden Hour Hero)</label>
+            <input type="text" id="inputScene5" class="form-input" value="you deserve every beautiful thing life has to offer.">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputScene6Line1">Scene 6 Title (24–30s)</label>
+            <input type="text" id="inputScene6Line1" class="form-input" value="HAPPY BIRTHDAY, {NAME} ♡">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputScene6Line2">Scene 6 Wish (24–30s)</label>
+            <input type="text" id="inputScene6Line2" class="form-input" value="stay cute, stay happy, and never stop being you 🎂">
+          </div>
+          <div class="form-group full-width">
+            <label class="form-label" for="inputScene6Line3">Scene 6 Signoff (28–30s)</label>
+            <input type="text" id="inputScene6Line3" class="form-input" value="love you always ♡">
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. Photos & Scrapbook Memories Slots -->
+      <div class="panel-card">
+        <h2 class="panel-title">📸 Photo Slots & Scrapbook Memories</h2>
+        <p class="panel-desc">Click any slot or drag and drop your friend's photos. Faces are preserved in natural proportions with zero distortion or watermarks.</p>
+
+        <div class="photo-slots-grid">
+          
+          <!-- Slot 1: Lake Portrait -->
+          <div class="photo-upload-slot" data-slot="friend_lake">
+            <input type="file" accept="image/*" style="display: none;">
+            <div class="slot-img-wrap">
+              <img src="assets/friend_lake.jpg" alt="Scene 2 Lake Portrait" class="slot-preview">
+            </div>
+            <div class="slot-label">Lake Portrait (Scene 2)</div>
+            <div class="slot-hint">Click or Drop to replace</div>
+          </div>
+
+          <!-- Slot 2: B&W Candid Smile -->
+          <div class="photo-upload-slot" data-slot="friend_bw_smile">
+            <input type="file" accept="image/*" style="display: none;">
+            <div class="slot-img-wrap">
+              <img src="assets/friend_bw_smile.jpg" alt="Scene 2 & 6 Candid Smile" class="slot-preview">
+            </div>
+            <div class="slot-label">Candid Smile (Scene 2/6)</div>
+            <div class="slot-hint">Click or Drop to replace</div>
+          </div>
+
+          <!-- Slot 3: Graceful Saree Portrait -->
+          <div class="photo-upload-slot" data-slot="friend_saree">
+            <input type="file" accept="image/*" style="display: none;">
+            <div class="slot-img-wrap">
+              <img src="assets/friend_saree.jpg" alt="Scene 3 Photobooth & Saree" class="slot-preview">
+            </div>
+            <div class="slot-label">Saree Portrait (Scene 3)</div>
+            <div class="slot-hint">Click or Drop to replace</div>
+          </div>
+
+          <!-- Slot 4: Sunset Open Arms Scrapbook -->
+          <div class="photo-upload-slot" data-slot="friend_sunset">
+            <input type="file" accept="image/*" style="display: none;">
+            <div class="slot-img-wrap">
+              <img src="assets/friend_sunset.jpg" alt="Scene 4 Sunset Water" class="slot-preview">
+            </div>
+            <div class="slot-label">Sunset Water (Scene 4)</div>
+            <div class="slot-hint">Click or Drop to replace</div>
+          </div>
+
+          <!-- Slot 5: Golden Hour Hero Glowing Lantern -->
+          <div class="photo-upload-slot" data-slot="friend_glowing_hero">
+            <input type="file" accept="image/*" style="display: none;">
+            <div class="slot-img-wrap">
+              <img src="assets/friend_glowing_hero.jpg" alt="Scene 5 Hero Glow" class="slot-preview">
+            </div>
+            <div class="slot-label">Hero Glowing Photo (Scene 5) ⭐</div>
+            <div class="slot-hint">Click or Drop to replace</div>
+          </div>
+
+          <!-- Slot 6: Birthday Cake -->
+          <div class="photo-upload-slot" data-slot="birthday_cake">
+            <input type="file" accept="image/*" style="display: none;">
+            <div class="slot-img-wrap">
+              <img src="assets/birthday_cake.jpg" alt="Scene 6 Birthday Cake" class="slot-preview">
+            </div>
+            <div class="slot-label">Birthday Cake (Scene 6)</div>
+            <div class="slot-hint">Click or Drop to replace</div>
+          </div>
+
+          <!-- Slot 7: Teddy Bear Scrapbook -->
+          <div class="photo-upload-slot" data-slot="teddy_bear">
+            <input type="file" accept="image/*" style="display: none;">
+            <div class="slot-img-wrap">
+              <img src="assets/teddy_bear.jpg" alt="Scene 4 Teddy Bear" class="slot-preview">
+            </div>
+            <div class="slot-label">Teddy Bear (Scene 4)</div>
+            <div class="slot-hint">Click or Drop to replace</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 3. Dreamy Music & Sound Engine -->
+      <div class="panel-card">
+        <h2 class="panel-title">🎵 Dreamy Music & Sound Box</h2>
+        <p class="panel-desc">Cute, dreamy instrumental music-box and piano synthesized with Web Audio, synchronized to beat transitions.</p>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="audioPresetSelect">Instrumental Sound Preset</label>
+            <select id="audioPresetSelect" class="form-select">
+              <option value="music_box" selected>✨ Sweet Music Box & Chimes (Dreamy & Emotional)</option>
+              <option value="lofi_piano">🎹 Lofi Sunset Piano (Warm & Nostalgic)</option>
+              <option value="celeste_harp">🌟 Sparkle Celeste & Harp (Gentle Wind-up)</option>
+              <option value="custom">📁 Upload Custom Song (MP3 / WAV)...</option>
+            </select>
+            <input type="file" id="customAudioUpload" accept="audio/*" style="display: none;">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="volumeSlider">Music Volume</label>
+            <div class="slider-group">
+              <span>🔈</span>
+              <input type="range" id="volumeSlider" class="slider-range" min="0" max="1" step="0.05" value="0.85">
+              <span>🔊</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Aesthetic & Film Grain Adjustments -->
+      <div class="panel-card">
+        <h2 class="panel-title">🎀 Scrapbook Aesthetics & Effects</h2>
+        <p class="panel-desc">Fine-tune the soft film grain, twinkling sparkles, and floating hearts.</p>
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label" for="sliderFilmGrain">Soft Vintage Film Grain</label>
+            <div class="slider-group">
+              <span>Clean</span>
+              <input type="range" id="sliderFilmGrain" class="slider-range" min="0" max="0.45" step="0.02" value="0.18">
+              <span>Vintage</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="sliderSparkles">Twinkling Sparkles Density</label>
+            <div class="slider-group">
+              <span>Subtle</span>
+              <input type="range" id="sliderSparkles" class="slider-range" min="0" max="2.0" step="0.1" value="1.0">
+              <span>Dreamy</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Big Export Bar -->
+      <div class="export-card">
+        <div class="export-info">
+          <h3>Ready for Instagram Reels?</h3>
+          <p>Exports in 1080 × 1920 (9:16 vertical), 30 fps with synced dreamy audio. No watermarks.</p>
+        </div>
+        <div class="export-buttons">
+          <button id="btnExportVideo2" class="btn btn-primary" onclick="document.getElementById('btnExportVideo').click()">
+            ✨ Export 1080 × 1920 Reel
+          </button>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Video Export Progress Modal -->
+  <div class="modal-overlay" id="exportModal">
+    <div class="modal-content">
+      <div style="font-size: 44px; margin-bottom: 12px;">🎀</div>
+      <h3 class="modal-title">Crafting Your Dreamy Reel</h3>
+      <p class="modal-desc">Recording all 6 scenes at full 1080 × 1920 HD with synchronized music...</p>
+
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="exportProgressFill"></div>
+      </div>
+      <div class="progress-text" id="exportProgressText">0%</div>
+      <div class="status-text" id="exportStatusText">Initializing rendering engine...</div>
+
+      <button id="btnCloseExportModal" class="btn btn-secondary" style="margin-top: 24px;">Cancel</button>
+    </div>
+  </div>
+
+  <script src="audio.js"></script>
+  <script src="renderer.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

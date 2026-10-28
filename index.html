@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday, Bestie! ♡ | Your Special Birthday Scrapbook</title>
+  <meta name="description"
+    content="A cute, aesthetic, interactive birthday scrapbook website made with love for your best friend. Features polaroids, memories, blowable cake candles, and heartfelt letters.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Playfair+Display:ital,wght@0,600;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Gaegu:wght@700&family=Courier+Prime:wght@400;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Ambient Floating Background Particles (Hearts, Sparkles, Stars) -->
+  <div class="ambient-particles" id="ambientParticles" aria-hidden="true"></div>
+
+  <!-- Fullscreen Confetti Canvas -->
+  <canvas id="confettiCanvas"></canvas>
+
+  <!-- ================= TOP CONTROLS BAR ================= -->
+  <nav class="top-bar">
+    <div class="top-bar-left">
+      <span class="brand-chip">🎀 Birthday Edition • 2026</span>
+    </div>
+
+    <div class="top-bar-right">
+      <!-- Music Player Widget -->
+      <div class="music-pill" id="btnToggleMusic" title="Play / Pause dreamy background music">
+        <div class="vinyl-disk" id="vinylDisk">
+          <div class="vinyl-center"></div>
+        </div>
+        <div class="music-info">
+          <span class="music-title">Sweet Birthday Chimes</span>
+          <span class="music-status" id="musicStatusText">Tap to Play</span>
+        </div>
+        <button class="music-btn" id="musicPlayBtn" aria-label="Toggle Audio">▶</button>
+      </div>
+
+      <!-- Personalize / Edit Button -->
+      <button class="icon-btn" id="btnOpenEdit" title="Customize name, message & photos">
+        ✏️ <span class="btn-text">Personalize</span>
+      </button>
+
+      <!-- Fullscreen / Share Button -->
+      <button class="icon-btn" id="btnShare" title="Copy shareable link">
+        🔗 <span class="btn-text">Share</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ================= UNWRAPPING ENVELOPE / PASSCODE MODAL ================= -->
+  <div class="envelope-overlay" id="envelopeOverlay">
+    <div class="envelope-modal">
+      <div class="envelope-container" id="envelopeContainer">
+        <!-- Envelope Flap -->
+        <div class="envelope-flap" id="envelopeFlap"></div>
+        <!-- Wax Seal -->
+        <div class="wax-seal" id="waxSeal" title="Click to open your birthday surprise">
+          <span class="wax-seal-icon">♡</span>
+        </div>
+        <!-- Envelope Body -->
+        <div class="envelope-body">
+          <div class="envelope-to-label">
+            <span class="to-text">Special Delivery for:</span>
+            <h2 class="recipient-display-name" id="envelopeName">MY BEST FRIEND OF 7 YEARS ♡</h2>
+            <p class="tagline">“7 years of laughs, deep life talks, and sharing our journey since 2019…”</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="envelope-instructions">
+        <div class="passcode-box">
+          <label for="inputPasscode" class="passcode-label">Enter Secret Birthday Code (or tap open):</label>
+          <div class="passcode-input-wrap">
+            <input type="password" id="inputPasscode" class="passcode-input" placeholder="e.g. 1234 or leave blank"
+              maxlength="8">
+            <button class="btn btn-primary btn-open" id="btnOpenEnvelope">
+              ✨ Open Our 7-Year Birthday Story 🎀
+            </button>
+          </div>
+          <p class="passcode-hint">Tip: Click the wax seal or button above to unwrap!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN DIGITAL SCRAPBOOK FLIPBOOK ================= -->
+  <main class="scrapbook-viewport">
+
+    <div class="scrapbook-book" id="scrapbookBook">
+
+      <!-- ================= PAGE 1: MAGAZINE COVER ================= -->
+      <section class="scrapbook-page page-1 active" data-page="1">
+        <div class="page-paper cover-paper">
+
+          <!-- Magazine Top Bar -->
+          <div class="cover-header">
+            <div class="cover-issue">ISSUE NO. 07 • 7-YEAR BEST FRIEND EDITION (SINCE 2019)</div>
+            <div class="cover-price">PRICELESS BOND ♡</div>
+          </div>
+
+          <!-- Magazine Masthead -->
+          <h1 class="cover-masthead">BIRTHDAY GIRL</h1>
+          <p class="cover-submasthead">7 YEARS OF UNCONDITIONAL FRIENDSHIP, LAUGHTER & LIFE LESSONS</p>
+
+          <div class="cover-hero-wrap">
+            <!-- Decorative Washi Tape -->
+            <div class="washi-tape tape-top-left"></div>
+            <div class="washi-tape tape-top-right"></div>
+
+            <!-- Hero Photo: Replaced glowing light photo with new B&W hair-flip photo -->
+            <div class="cover-photo-frame">
+              <img src="assets/friend_cover_bw.jpg" alt="Birthday Girl Cover" class="cover-photo" id="imgCoverHero">
+              <div class="photo-glow-halo"></div>
+            </div>
+
+            <!-- Floating Magazine Badges & Cutouts -->
+            <div class="cover-badge badge-1">
+              <span>✨ 7 YEARS OF FRIENDSHIP</span>
+            </div>
+            <div class="cover-badge badge-2">
+              <span>👑 PARTNER IN CRIME & BESTIE</span>
+            </div>
+            <div class="cover-badge badge-3">
+              <span>🔒 KEEPER OF MY SECRETS & HABITS</span>
+            </div>
+          </div>
+
+          <!-- Bottom Cover Headlines -->
+          <div class="cover-footer">
+            <div class="cover-headline-main">
+              <span class="cover-star">★</span>
+              <span>SPECIAL FEATURE: 7 years of celebrating every success, overcoming struggles & endless laughter since 2019!</span>
+              <span class="cover-star">★</span>
+            </div>
+            <button class="btn btn-primary btn-turn-cover" id="btnStartScrapbook">
+              Open Scrapbook ➔
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 2: POLAROID MEMORY SPREAD ================= -->
+      <section class="scrapbook-page page-2" data-page="2">
+        <div class="page-paper polaroid-paper">
+
+          <div class="scrapbook-ribbon-title">
+            <span class="ribbon-text">7 YEARS OF UNFILTERED US (SINCE 2019) ♡</span>
+          </div>
+
+          <p class="section-subtitle">“My success, my struggles, my crazy habits… you’ve always stood by me.”</p>
+
+          <div class="polaroid-grid polaroid-grid-3">
+
+            <!-- Polaroid 1: Lake Day -->
+            <div class="polaroid-card polaroid-tilt-left" id="cardLake">
+              <div class="washi-tape tape-center"></div>
+              <div class="polaroid-img-wrap">
+                <img src="assets/friend_lake.jpg" alt="Sunny Day Outdoors" class="polaroid-img" id="imgLake">
+              </div>
+              <div class="polaroid-caption">sunny days & that infectious smile 🌊 ♡</div>
+              <div class="stamp-chip stamp-chip-blue">SINCE 2019</div>
+            </div>
+
+            <!-- Polaroid 2: B&W Laughing Candid -->
+            <div class="polaroid-card" id="cardBw">
+              <div class="paper-clip clip-top-right"></div>
+              <div class="polaroid-img-wrap">
+                <img src="assets/friend_bw_smile.jpg" alt="That radiant laugh" class="polaroid-img" id="imgBwSmile">
+              </div>
+              <div class="polaroid-caption">the laugh that brightens up my whole week ✨</div>
+              <div class="stamp-chip stamp-chip-pink">PURE JOY</div>
+            </div>
+
+            <!-- Polaroid 3: Brown Dress on Grass -->
+            <div class="polaroid-card polaroid-tilt-right" id="cardBrownDress">
+              <div class="washi-tape tape-top-right-slanted"></div>
+              <div class="polaroid-img-wrap">
+                <img src="assets/friend_brown_dress.jpg" alt="Radiant smile in brown dress" class="polaroid-img"
+                  id="imgBrownDress">
+              </div>
+              <div class="polaroid-caption">my safe place & lifelong confidante 🌿 ♡</div>
+              <div class="stamp-chip stamp-chip-blue">BESTIE</div>
+            </div>
+
+          </div>
+
+          <!-- Cute Doodled Scrapbook Elements -->
+          <div class="doodle-row">
+            <div class="torn-note-scrap">
+              <p>📌 <em>Note to self:</em> Back in 2019, life blessed me with a true best friend. The first person I call
+                with good news, the one who listens to all my rants, and the truest friend anyone could ask for!</p>
+            </div>
+            <div class="sticker-flower">🌸</div>
+            <div class="sticker-sparkle">✨</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 3: THE ERA OF YOU (STYLE & TIMELESS GRACE) ================= -->
+      <section class="scrapbook-page page-3" data-page="3">
+        <div class="page-paper style-grace-paper">
+
+          <div class="scrapbook-ribbon-title ribbon-purple">
+            <span class="ribbon-text">THE ERA OF YOU • GORGEOUS, RADIANT & KIND 🎀</span>
+          </div>
+
+          <p class="section-subtitle">“Thriving, glowing, and being an absolute inspiration every single year! ✨”</p>
+
+          <div class="editorial-spread">
+
+            <!-- Editorial Card 1: Classical Pillars & Trench Coat -->
+            <div class="editorial-card polaroid-tilt-left" id="cardTrenchCoat">
+              <div class="washi-tape tape-top-left-slanted"></div>
+              <div class="editorial-img-wrap">
+                <img src="assets/friend_trench_coat.jpg" alt="Effortlessly chic by pillars" class="editorial-img"
+                  id="imgTrenchCoat">
+              </div>
+              <div class="editorial-caption">effortlessly chic, timelessly stunning 🏛️ ✨</div>
+              <div class="stamp-chip stamp-chip-pink">ICONIC</div>
+            </div>
+
+            <!-- Editorial Card 2: Brick Stairs & Flowers -->
+            <div class="editorial-card polaroid-tilt-right" id="cardBrickStairs">
+              <div class="washi-tape tape-top-right-slanted"></div>
+              <div class="editorial-img-wrap">
+                <img src="assets/friend_brick_stairs.jpg" alt="Grace and blooming joy" class="editorial-img"
+                  id="imgBrickStairs">
+              </div>
+              <div class="editorial-caption">poise, grace & blooming happiness 🌸 👠</div>
+              <div class="stamp-chip stamp-chip-blue">ELEGANCE</div>
+            </div>
+
+          </div>
+
+          <!-- Elegant Editorial Scrapbook Quotes & Stickers -->
+          <div class="editorial-quote-row">
+            <div class="editorial-quote-card">
+              <p class="quote-text">“True beauty is when someone has a golden heart to match their radiant smile.”</p>
+              <p class="quote-author">— your proud best friend of 7 years ♡</p>
+            </div>
+            <div class="editorial-mini-badge">
+              <span>💎 7 YEARS OF GENUINE FRIENDSHIP</span>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 4: THE RANSOM-NOTE BIRTHDAY COLLAGE (EXACT REEL MATCH) ================= -->
+      <section class="scrapbook-page page-4" data-page="4">
+        <div class="page-paper striped-pink-paper">
+
+          <!-- Scrapbook Header Cutout Typography -->
+          <div class="ransom-container" aria-label="HAPPY BIRTHDAY">
+            <div class="ransom-word">
+              <span class="ransom-letter l-h">H</span>
+              <span class="ransom-letter l-a">A</span>
+              <span class="ransom-letter l-p1">P</span>
+              <span class="ransom-letter l-p2">P</span>
+              <span class="ransom-letter l-y">Y</span>
+            </div>
+            <div class="ransom-word">
+              <span class="ransom-letter l-b">B</span>
+              <span class="ransom-letter l-i">I</span>
+              <span class="ransom-letter l-r">R</span>
+              <span class="ransom-letter l-t">T</span>
+              <span class="ransom-letter l-h2">H</span>
+              <span class="ransom-letter l-d">D</span>
+              <span class="ransom-letter l-a2">A</span>
+              <span class="ransom-letter l-y2">Y</span>
+            </div>
+          </div>
+
+          <!-- Collage Canvas Area -->
+          <div class="scrapbook-collage-area">
+
+            <!-- Strawberry Sticker -->
+            <div class="scrapbook-sticker sticker-strawberry" title="Sweet like a strawberry">
+              🍓
+            </div>
+
+            <!-- Retro Camera Sticker -->
+            <div class="scrapbook-sticker sticker-camera" title="Capturing sweet moments">
+              📷
+            </div>
+
+            <!-- Glitter Star Sticker -->
+            <div class="scrapbook-sticker sticker-star" title="You're a star">
+              ⭐
+            </div>
+
+            <!-- Dimensional Red Heart -->
+            <div class="scrapbook-sticker sticker-red-heart">
+              ❤️
+            </div>
+
+            <!-- Doodle Ribbon Bow -->
+            <div class="scrapbook-sticker sticker-bow">
+              🎀
+            </div>
+
+            <!-- Cute Scrapbook Torn Quotes (from reel!) -->
+            <div class="quote-scrap quote-1">
+              <span>“7 years of memories and a lifetime of friendship to go! ♡”</span>
+            </div>
+
+            <div class="quote-scrap quote-2">
+              <span>“Sharing every success, every lesson, and all our crazy stories.” ✨</span>
+            </div>
+
+            <div class="quote-scrap quote-3">
+              <span>“Having a best friend like you is life’s sweetest blessing.” 🧸</span>
+            </div>
+
+            <!-- Polaroid Photo 1: Saree Portrait -->
+            <div class="collage-polaroid polaroid-saree">
+              <div class="washi-tape tape-top-right-slanted"></div>
+              <div class="collage-polaroid-inner">
+                <img src="assets/friend_saree.jpg" alt="Graceful portrait" id="imgCollageSaree">
+              </div>
+              <div class="collage-caption">that timeless grace & warmth 🌸</div>
+            </div>
+
+            <!-- Polaroid Photo 2: Sunset Open Arms -->
+            <div class="collage-polaroid polaroid-sunset">
+              <div class="washi-tape tape-top-left-slanted"></div>
+              <div class="collage-polaroid-inner">
+                <img src="assets/friend_sunset.jpg" alt="Sunset in water" id="imgCollageSunset">
+              </div>
+              <div class="collage-caption">golden hours & 7 years of memories 🌅</div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 5: INTERACTIVE BIRTHDAY CAKE ================= -->
+      <section class="scrapbook-page page-5" data-page="5">
+        <div class="page-paper bakery-paper">
+
+          <div class="bakery-header">
+            <h2 class="bakery-title">MAKE A 7-YEAR WISH & BLOW THE CANDLES! 🎂</h2>
+            <p class="bakery-desc" id="candlePromptText">
+              ✨ Close your eyes, make a wish celebrating our 7 years of friendship since 2019, then <strong>click the
+                candles</strong> to blow them out!
+            </p>
+          </div>
+
+          <!-- Interactive Cake Stage -->
+          <div class="cake-stage" id="cakeStage">
+
+            <div class="cake-container" id="cakeContainer" title="Click to blow out the candles!">
+              <!-- Glowing Candles with Animated Flames -->
+              <div class="candles-rack">
+                <div class="candle candle-1">
+                  <div class="flame" id="flame1"></div>
+                  <div class="smoke" id="smoke1"></div>
+                  <div class="candle-stick"></div>
+                </div>
+                <div class="candle candle-2">
+                  <div class="flame" id="flame2"></div>
+                  <div class="smoke" id="smoke2"></div>
+                  <div class="candle-stick"></div>
+                </div>
+                <div class="candle candle-3">
+                  <div class="flame" id="flame3"></div>
+                  <div class="smoke" id="smoke3"></div>
+                  <div class="candle-stick"></div>
+                </div>
+              </div>
+
+              <!-- Cake Illustration Layers -->
+              <div class="cake-tier tier-top">
+                <div class="frosting-drips"></div>
+                <div class="cherries-row">🍒 🍓 🍒</div>
+              </div>
+              <div class="cake-tier tier-middle">
+                <div class="frosting-stripes"></div>
+              </div>
+              <div class="cake-tier tier-bottom">
+                <div class="bottom-piping"></div>
+              </div>
+              <div class="cake-plate"></div>
+            </div>
+
+            <!-- Blow Button -->
+            <div class="cake-actions">
+              <button class="btn btn-celebrate" id="btnBlowCandles">
+                💨 Blow Out Candles! 🎂
+              </button>
+            </div>
+
+            <!-- Wish Granted Banner (Revealed after blowing candles) -->
+            <div class="wish-granted-banner" id="wishGrantedBanner" style="display: none;">
+              <div class="wish-sparkles">🎉 ✨ 🎂 🎀 💖</div>
+              <h3 class="wish-title">WISH GRANTED!</h3>
+              <p class="wish-text">May this year bring you boundless happiness, peace, success, and all the love you deserve! Here's to 7 years since 2019 and a lifetime to go! 🎉 ♡</p>
+              <button class="btn btn-secondary btn-relight" id="btnRelightCandles">
+                🕯️ Relight & Make Another Wish
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 6: HEARTFELT LETTER FROM BEST FRIEND ================= -->
+      <section class="scrapbook-page page-6" data-page="6">
+        <div class="page-paper letter-paper">
+
+          <div class="letter-stationery">
+            <div class="letter-stamp">
+              <span>SPECIAL DELIVERY</span>
+              <span>SINCE 2019 • 7 YEARS ♡</span>
+            </div>
+
+            <div class="letter-salutation">
+              Dearest <span id="letterRecipientName">Dipa</span>,
+            </div>
+
+            <!-- Side-by-side layout: Letter text on left, Polaroid on right, ZERO OVERLAP -->
+            <div class="letter-content-layout">
+              <div class="letter-body" id="letterBodyContent">
+                <p>Happy 7th Birthday to our friendship, and the happiest birthday to YOU! ♡</p>
+
+                <p>Seven years. Since 2019, you’ve been my favorite person to share this life with. When I look back at the past seven years, every major milestone in my life has had your support behind it. Whenever I achieved something great, you were the very first person I wanted to share my success with. And whenever life got heavy or painful, you were always the safe, judgment-free space where I could vent, recharge, and be completely myself.</p>
+
+                <p>You know all my weird habits, all my quirks, all my dreams, and you’ve always stood by me as my biggest cheerleader. You bring so much positivity, laughter, and kindness into this world, and I’m so happy seeing you thrive, loved, and smiling.</p>
+
+                <p>Thank you for seven years of genuine, loyal friendship. You aren't just a great friend—you are family. I hope this new year brings you everything you've ever wished for: boundless joy, peace, success, and all the happiness in the world.</p>
+              </div>
+
+              <!-- Pinned Polaroid on Letter - Side-by-side with text -->
+              <div class="letter-polaroid">
+                <div class="washi-tape tape-slanted-pink"></div>
+                <img src="assets/friend_bw_smile.jpg" alt="Always smiling" id="imgLetterPolaroid">
+                <span class="letter-polaroid-tag">since 2019 • 7 years ✨</span>
+              </div>
+            </div>
+
+            <div class="letter-signoff">
+              <p class="closing">Always in your corner,</p>
+              <p class="signature">Your Best Friend Since 2019 ♡</p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= PAGE 7: FRIENDSHIP VOUCHERS & COUPONS ================= -->
+      <section class="scrapbook-page page-7" data-page="7">
+        <div class="page-paper coupons-paper">
+
+          <div class="coupons-header">
+            <h2 class="coupons-title">🎟️ 7-YEAR BEST FRIEND VOUCHERS</h2>
+            <p class="coupons-subtitle">Click any voucher to redeem your birthday gifts!</p>
+          </div>
+
+          <div class="coupons-grid">
+
+            <!-- Coupon 1 -->
+            <div class="coupon-card" data-coupon="1">
+              <div class="coupon-cutout-left"></div>
+              <div class="coupon-cutout-right"></div>
+              <div class="coupon-icon">☕</div>
+              <div class="coupon-details">
+                <h4 class="coupon-name">Coffee & Life Catch-Up Date</h4>
+                <p class="coupon-desc">Unlimited treats on me while we catch up on work, life, and everything new.</p>
+                <span class="coupon-meta">Valid 24/7 • 7-Year Friendship Pass (Since 2019)</span>
+              </div>
+              <button class="btn-redeem" title="Redeem this voucher">Claim Voucher</button>
+              <div class="redeemed-stamp">REDEEMED ♡</div>
+            </div>
+
+            <!-- Coupon 2 -->
+            <div class="coupon-card" data-coupon="2">
+              <div class="coupon-cutout-left"></div>
+              <div class="coupon-cutout-right"></div>
+              <div class="coupon-icon">📞</div>
+              <div class="coupon-details">
+                <h4 class="coupon-name">2:00 AM Vent & Advice Session</h4>
+                <p class="coupon-desc">A listening ear, solid advice, and zero judgment for any tough day.</p>
+                <span class="coupon-meta">Expires: Never • Rain or Shine</span>
+              </div>
+              <button class="btn-redeem" title="Redeem this voucher">Claim Voucher</button>
+              <div class="redeemed-stamp">REDEEMED ♡</div>
+            </div>
+
+            <!-- Coupon 3 -->
+            <div class="coupon-card" data-coupon="3">
+              <div class="coupon-cutout-left"></div>
+              <div class="coupon-cutout-right"></div>
+              <div class="coupon-icon">🎉</div>
+              <div class="coupon-details">
+                <h4 class="coupon-name">Big Milestone Celebration</h4>
+                <p class="coupon-desc">Celebrating your next big accomplishment with your favorite food on me!</p>
+                <span class="coupon-meta">Ready whenever you crush a goal</span>
+              </div>
+              <button class="btn-redeem" title="Redeem this voucher">Claim Voucher</button>
+              <div class="redeemed-stamp">REDEEMED ♡</div>
+            </div>
+
+            <!-- Coupon 4 -->
+            <div class="coupon-card" data-coupon="4">
+              <div class="coupon-cutout-left"></div>
+              <div class="coupon-cutout-right"></div>
+              <div class="coupon-icon">🤝</div>
+              <div class="coupon-details">
+                <h4 class="coupon-name">Unconditional Bestie Support</h4>
+                <p class="coupon-desc">Always in your corner through every triumph, challenge, and new chapter.</p>
+                <span class="coupon-meta">Lifetime Guarantee • 7 Years & Forever ♡</span>
+              </div>
+              <button class="btn-redeem" title="Redeem this voucher">Claim Voucher</button>
+              <div class="redeemed-stamp">REDEEMED ♡</div>
+            </div>
+
+          </div>
+
+          <!-- Final Signoff Footer -->
+          <div class="final-signoff-card">
+            <h3>HAPPY BIRTHDAY TO A WONDERFUL BEST FRIEND! 🎀</h3>
+            <p>7 years of unforgettable memories since 2019, and a whole lifetime of friendship to go.</p>
+            <button class="btn btn-primary" id="btnRestartBook">↺ Start From Beginning</button>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- ================= BOTTOM NAVIGATION DOCK ================= -->
+  <footer class="bottom-dock">
+    <button class="dock-nav-btn" id="btnPrevPage" aria-label="Previous Page">
+      ‹ Prev
+    </button>
+
+    <div class="page-dots-wrap" id="pageDotsWrap">
+      <span class="page-dot active" data-goto="1" title="Page 1: Magazine Cover"></span>
+      <span class="page-dot" data-goto="2" title="Page 2: Sweetest Memories"></span>
+      <span class="page-dot" data-goto="3" title="Page 3: Style & Grace"></span>
+      <span class="page-dot" data-goto="4" title="Page 4: Happy Birthday Collage"></span>
+      <span class="page-dot" data-goto="5" title="Page 5: Birthday Cake"></span>
+      <span class="page-dot" data-goto="6" title="Page 6: Birthday Letter"></span>
+      <span class="page-dot" data-goto="7" title="Page 7: Gift Vouchers"></span>
+    </div>
+
+    <div class="page-counter" id="pageCounterText">1 / 7</div>
+
+    <button class="dock-nav-btn" id="btnNextPage" aria-label="Next Page">
+      Next ›
+    </button>
+  </footer>
+
+  <!-- ================= EDIT / PERSONALIZE MODAL ================= -->
+  <div class="modal-backdrop" id="editModal" style="display: none;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">💌 Personalize Birthday Scrapbook</h3>
+        <button class="modal-close" id="btnCloseEdit">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label" for="editFriendName">Best Friend's Name:</label>
+          <input type="text" id="editFriendName" class="form-input" value="EMMA">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="editPasscode">Secret Passcode (Optional):</label>
+          <input type="text" id="editPasscode" class="form-input" placeholder="Leave empty for no passcode">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="editLetter">Personal Birthday Letter:</label>
+          <textarea id="editLetter" class="form-textarea" rows="6"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="editAudioPreset">Background Music:</label>
+          <select id="editAudioPreset" class="form-select">
+            <option value="music_box" selected>✨ Sweet Music Box & Chimes</option>
+            <option value="lofi_piano">🎹 Lofi Sunset Piano</option>
+            <option value="celeste_harp">🌟 Sparkle Celeste & Harp</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="btnCancelEdit">Cancel</button>
+        <button class="btn btn-primary" id="btnSaveEdit">Save Changes ✨</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Background Music Audio Element -->
+  <audio id="bgMusicAudio" loop preload="auto" src="assets/happy_birthday_song.mp3"></audio>
+
+  <!-- Audio Synthesizer Engine -->
+  <script src="audio.js"></script>
+  <!-- Application Controller -->
+  <script src="app.js"></script>
+</body>
+
+</html>
